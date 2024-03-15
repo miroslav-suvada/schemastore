@@ -5977,6 +5977,15 @@
       "description": "Bioimage.io community specifications json, may be produced or consumed by bioimage.io-compatible consumers",
       "fileMatch": [],
       "url": "https://bioimage-io.github.io/spec-bioimage-io/bioimageio_schema_latest.json"
+    },
+    {
+      "name": "",
+      "description": "",
+      "fileMatch": [
+        "**/stubby4j/**/*.yml",
+        "**/stubby4j/**/*.yaml"
+      ],
+      "url": "https://json.schemastore.org/stubby4j.json"
     }
   ]
 }
