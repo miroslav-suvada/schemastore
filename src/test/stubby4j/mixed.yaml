@@ -1,0 +1,33 @@
+- proxy-config:
+    uuid: default
+    description: this is a default catch-all config
+    strategy: as-is
+    properties:
+      endpoint: https://jsonplaceholder.typicode.com
+
+
+- request:
+    method:
+      - GET
+    url: /resources/user/1
+
+  response:
+    status: 200
+    body: >
+      {"status": "OK"}
+    headers:
+      content-type: application/json
+
+
+- web-socket:
+    url: /demo/web-socket/5
+
+    on-message:
+      - client-request:
+          message-type: text
+          body: send-fragmentation-pls
+        server-response:
+          policy: fragmentation
+          message-type: binary
+          file: ../json/response/json_response_1.json
+          delay: 10
