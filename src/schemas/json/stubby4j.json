@@ -1,0 +1,101 @@
+{
+  "$id": "https://json.schemastore.org/stubby4j.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "https://stubby4j.com/docs/http_endpoint_configuration_howto.html",
+  "definitions": {
+    "http_methods": {
+      "enum": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "CONNECT",
+        "OPTIONS"
+      ]
+    },
+    "http_request": {
+      "description": "describes the client's call to the server",
+      "type": "object",
+      "properties": {
+        "method": {
+          "description": "Accepted http methods. Defaults to GET",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/http_methods"
+              }
+            },
+            {
+              "$ref": "#/definitions/http_methods"
+            }
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": "the URI regex string. GET parameters should also be included inline here"
+        },
+        "query": {
+          "type": "object",
+          "description": "a key/value map of query string parameters included with the request. Query param value can be regex"
+        },
+        "headers": {
+          "type": "object",
+          "description": "a key/value map of headers the server should respond to. Header value can be regex"
+        },
+        "post": {
+          "type": "string",
+          "description": "a string matching the textual body of the response. Post value can be regex"
+        },
+        "file": {
+          "type": "string",
+          "description": "if specified, returns the contents of the given file as the request post. If the file cannot be found at request time, post is used instead"
+        }
+      }
+    }
+  },
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "description": {
+        "type": "string",
+        "description": "optional description shown in logs"
+      },
+      "uuid": {
+        "type": "string",
+        "description": "optional unique identifier"
+      },
+      "request": {}
+    },
+    "response": {
+      "description": "describes the server's response (or array of responses, refer to the earlier examples) to the client",
+      "type": "object",
+      "properties": {
+        "headers": {
+          "type": "object",
+          "description": "a key/value map of headers the server should use in it’s response"
+        },
+        "latency": {
+          "type": "integer",
+          "description": "the time in milliseconds the server should wait before responding. Useful for testing timeouts and latency"
+        },
+        "file": {
+          "type": "string",
+          "description": "if specified, returns the contents of the given file as the response body. If the file cannot be found at request time, body is used instead"
+        },
+        "body": {
+          "type": "string",
+          "description": "the textual body of the server's response to the client"
+        },
+        "status": {
+          "type": "integer",
+          "description": "the numerical HTTP status code (200 for OK, 404 for NOT FOUND, etc.)"
+        }
+      }
+    }
+  }
+}
+}
